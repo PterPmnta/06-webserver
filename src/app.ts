@@ -1,11 +1,13 @@
 import express from 'express';
 import path from 'path';
+import hbs from 'hbs';
 
 const app = express();
 const port = 8080;
 const __dirname = path.resolve(path.dirname(''));
 
 app.set('view engine', 'hbs');
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 app.use(express.static('public'));
 
@@ -16,21 +18,19 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
-});
-
 app.get('/generic', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/generic.html'));
+    res.render('generic', {
+        nombre: 'Pedro Pimienta',
+        titulo: 'Curso Node'
+    });
 });
 
 app.get('/elements', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/elements.html'));
+    res.render('elements', {
+        nombre: 'Pedro Pimienta',
+        titulo: 'Curso Node'
+    });
 });
-
-/* app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/404.html'));
-}); */
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
