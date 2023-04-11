@@ -1,9 +1,10 @@
 import express from 'express';
 import path from 'path';
 import hbs from 'hbs';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
-const port = 8080;
 const __dirname = path.resolve(path.dirname(''));
 
 app.set('view engine', 'hbs');
@@ -32,6 +33,6 @@ app.get('/elements', (req, res) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Example app listening on port ${process.env.PORT}`);
 });
